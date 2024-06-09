@@ -1,0 +1,108 @@
+function drawPoint(context, x, y, label, color, size) {
+      if (color == null) {
+          color = '#000';
+      }
+      if (size == null) {
+          size = 5;
+      }
+
+      var radius = 0.5 * size;
+
+      // to increase smoothing for numbers with decimal part
+      var pointX = Math.round(x - radius);
+      var pointY = Math.round(y - radius);
+
+      context.beginPath();
+      context.fillStyle = color;
+      context.fillRect(pointX, pointY, size, size);
+      context.fill();
+
+      if (label) {
+          var textX = Math.round(x);
+          var textY = Math.round(pointY - 5);
+
+          context.font = 'Italic 14px Arial';
+          context.fillStyle = color;
+          context.textAlign = 'center';
+          context.fillText(label, textX, textY);
+      }
+}
+
+//Doesn't work for whatever reason
+/*
+function drawMultiplePoints() {
+    if ((arguments.length/2)%2 != 0)
+        return "Invalid length";
+    else
+        for(var i = 0; i < arguments.length - 1; i++){
+          
+        drawPoint(context, arguments[i], arguments[i+1], 'A', 'red', 3);
+        //console.log(elem[i]);
+        }
+        return null;
+}
+*/
+
+function setup() {
+  
+  createCanvas(400, 400);
+  
+}
+
+function draw() {
+  
+  background(220);
+  //var canvas = document.querySelector('#my-canvas');
+  var context = canvas.getContext('2d');    
+  //const line = canvas.getContext('2d');
+  const arguments = [5,72,65,89,43,61];
+  var startx = arguments[0];
+  var starty = arguments[1];
+  
+  //draw points
+  for(var i = 0; i < arguments.length - 1; i++){
+          
+    drawPoint(context, arguments[i], arguments[i+1], 'A', 'red', 3);
+    //console.log(elem[i]);
+  }
+  
+  //find lowest y coordinate if they the same find the one with
+  //lower x coordinate
+  for(var i = 2; i < arguments.length - 1; i++){
+    
+    if(starty == arguments[i+1]){
+      
+      if(startx > arguments[i]){
+        
+        startx = arguments[i];
+      }
+      
+    }
+     
+    if(starty < arguments[i+1]){
+      
+      startx = arguments[i];
+      starty = arguments[i+1];
+    }
+    //console.log(elem[i]);
+  }
+  
+  //drawMultiplePoints(context, arr);
+  /*
+  line.strokeStyle = 'green';
+  line.lineWidth = 2;
+  
+  var x1 = 10
+  var y1 = 30
+  var x2 = 47
+  var y2 = 93
+
+  drawPoint(context, x1, y1, 'A', 'red', 3);
+  drawPoint(context, x2, y2, 'B', 'blue', 3);
+  
+  line.beginPath();
+  line.moveTo(x1,y1);
+  line.lineTo(x2,y2);
+  line.stroke();
+  */
+}

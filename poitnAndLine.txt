@@ -1,0 +1,62 @@
+
+
+function drawPoint(context, x, y, label, color, size) {
+      	if (color == null) {
+        	color = '#000';
+        }
+        if (size == null) {
+            size = 5;
+        }
+      
+      	var radius = 0.5 * size;
+
+      	// to increase smoothing for numbers with decimal part
+		var pointX = Math.round(x - radius);
+        var pointY = Math.round(y - radius);
+  
+        context.beginPath();
+        context.fillStyle = color;
+      	context.fillRect(pointX, pointY, size, size);
+        context.fill();
+      
+      	if (label) {
+            var textX = Math.round(x);
+          	var textY = Math.round(pointY - 5);
+          
+            context.font = 'Italic 14px Arial';
+            context.fillStyle = color;
+            context.textAlign = 'center';
+            context.fillText(label, textX, textY);
+        }
+    }
+    
+
+function setup() {
+  
+  createCanvas(400, 400);
+  
+}
+
+function draw() {
+  
+  background(220);
+  //var canvas = document.querySelector('#my-canvas');
+  var context = canvas.getContext('2d');    
+  const line = canvas.getContext('2d');
+  line.strokeStyle = 'green';
+  line.lineWidth = 2;
+  
+  var x1 = 10
+  var y1 = 30
+  var x2 = 47
+  var y2 = 93
+
+  drawPoint(context, x1, y1, 'A', 'red', 3);
+  drawPoint(context, x2, y2, 'B', 'blue', 3);
+  
+  line.beginPath();
+  line.moveTo(x1,y1);
+  line.lineTo(x2,y2);
+  line.stroke();
+  
+}
